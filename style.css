@@ -29,6 +29,7 @@ body {
 }
 
 .player-photo-wrap {
+    position: relative;
     width: 100%;
     border-radius: 28px;
     overflow: hidden;
@@ -42,6 +43,23 @@ body {
     height: 430px;
     object-fit: cover;
     display: block;
+}
+
+.player-watermark {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 145%;
+    transform: translate(-50%, -50%) rotate(-18deg);
+    color: rgba(255, 255, 255, 0.22);
+    font-size: clamp(42px, 9vw, 82px);
+    font-weight: 900;
+    line-height: 0.95;
+    pointer-events: none;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0 3px 18px rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
 }
 
 h1 {
@@ -306,6 +324,11 @@ h1 {
 
     .player-photo {
         height: 330px;
+    }
+
+    .player-watermark {
+        font-size: 42px;
+        width: 170%;
     }
 
     h1 {
