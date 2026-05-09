@@ -8,7 +8,8 @@ const textos = {
         titleLine1: 'Neymar',
         titleLine2: 'na',
         titleLine3: 'Copa',
-        photoWatermark: 'Neymar na Copa',
+        photoWatermark: 'Enquete de fã-site',
+        fanSiteText: 'Enquete independente criada por fãs. Não há vínculo oficial com Neymar, representantes, patrocinadores, clubes ou entidades esportivas.',
         votesLabel: 'pessoas votaram',
         goalText: 'Meta: 20.000.000 votos',
         mainVoteButton: 'Votar agora',
@@ -22,12 +23,11 @@ const textos = {
         emailRequired: 'Informe o e-mail.',
         errorMessage: 'Não foi possível registrar o voto.',
         requestError: 'Erro na requisição',
-        supportTitle: 'Apoie o projeto',
-        supportText: 'Ajude a manter a votação online com uma contribuição via Pix.',
-        pixButton: 'Copiar chave Pix',
+        supportTitle: 'Apoie discretamente',
+        supportText: 'Se quiser ajudar a manter esta enquete online, você pode contribuir via Pix.',
+        pixButton: 'Copiar Pix',
         pixCopied: 'Chave Pix copiada!',
-        pixNotConfigured: 'Configure sua chave Pix no app.js.',
-        adPlaceholder: 'Espaço reservado para anúncio',
+        pixNotConfigured: 'Pix ainda não configurado.',
         independentNotice: 'Projeto independente, sem vínculo oficial com Neymar.',
         privacyLink: 'Política de Privacidade',
         percentText: percent => `${percent}% querem Neymar na Copa`
@@ -38,7 +38,8 @@ const textos = {
         titleLine1: 'Neymar',
         titleLine2: 'to the',
         titleLine3: 'World Cup',
-        photoWatermark: 'Neymar to the World Cup',
+        photoWatermark: 'Fan-site poll',
+        fanSiteText: 'Independent fan-made poll. There is no official connection to Neymar, representatives, sponsors, clubs, or sports organizations.',
         votesLabel: 'people have voted',
         goalText: 'Goal: 20,000,000 votes',
         mainVoteButton: 'Vote now',
@@ -52,12 +53,11 @@ const textos = {
         emailRequired: 'Please enter your email.',
         errorMessage: 'Could not register vote.',
         requestError: 'Request error',
-        supportTitle: 'Support the project',
-        supportText: 'Help keep this voting page online with a Pix donation.',
-        pixButton: 'Copy Pix key',
+        supportTitle: 'Discreet support',
+        supportText: 'If you want to help keep this poll online, you can contribute via Pix.',
+        pixButton: 'Copy Pix',
         pixCopied: 'Pix key copied!',
-        pixNotConfigured: 'Configure your Pix key in app.js.',
-        adPlaceholder: 'Reserved ad space',
+        pixNotConfigured: 'Pix is not configured yet.',
         independentNotice: 'Independent project with no official connection to Neymar.',
         privacyLink: 'Privacy Policy',
         percentText: percent => `${percent}% want Neymar in the World Cup`
@@ -68,7 +68,8 @@ const textos = {
         titleLine1: 'Neymar',
         titleLine2: 'al',
         titleLine3: 'Mundial',
-        photoWatermark: 'Neymar al Mundial',
+        photoWatermark: 'Encuesta de fans',
+        fanSiteText: 'Encuesta independiente creada por fans. No existe vínculo oficial con Neymar, representantes, patrocinadores, clubes o entidades deportivas.',
         votesLabel: 'personas votaron',
         goalText: 'Meta: 20.000.000 votos',
         mainVoteButton: 'Votar ahora',
@@ -82,12 +83,11 @@ const textos = {
         emailRequired: 'Ingresa tu e-mail.',
         errorMessage: 'No fue posible registrar el voto.',
         requestError: 'Error en la solicitud',
-        supportTitle: 'Apoya el proyecto',
-        supportText: 'Ayuda a mantener la votación online con una contribución por Pix.',
-        pixButton: 'Copiar clave Pix',
+        supportTitle: 'Apoyo discreto',
+        supportText: 'Si quieres ayudar a mantener esta encuesta online, puedes contribuir por Pix.',
+        pixButton: 'Copiar Pix',
         pixCopied: '¡Clave Pix copiada!',
-        pixNotConfigured: 'Configura tu clave Pix en app.js.',
-        adPlaceholder: 'Espacio reservado para anuncio',
+        pixNotConfigured: 'Pix aún no está configurado.',
         independentNotice: 'Proyecto independiente, sin vínculo oficial con Neymar.',
         privacyLink: 'Política de Privacidad',
         percentText: percent => `${percent}% quieren a Neymar en el Mundial`
@@ -98,7 +98,8 @@ const textos = {
         titleLine1: 'ネイマール',
         titleLine2: 'を',
         titleLine3: 'W杯へ',
-        photoWatermark: 'ネイマールをW杯へ',
+        photoWatermark: 'ファン投票',
+        fanSiteText: 'ファンによる独立した投票です。Neymar本人、代理人、スポンサー、クラブ、スポーツ団体との公式な関係はありません。',
         votesLabel: '人が投票しました',
         goalText: '目標: 20,000,000票',
         mainVoteButton: '今すぐ投票',
@@ -112,12 +113,11 @@ const textos = {
         emailRequired: 'メールを入力してください。',
         errorMessage: '投票を登録できませんでした。',
         requestError: 'リクエストエラー',
-        supportTitle: 'プロジェクトを支援',
-        supportText: 'Pix寄付でこの投票ページの運営を支援できます。',
-        pixButton: 'Pixキーをコピー',
+        supportTitle: '控えめな支援',
+        supportText: 'この投票ページの運営を支援したい場合は、Pixで寄付できます。',
+        pixButton: 'Pixをコピー',
         pixCopied: 'Pixキーをコピーしました！',
-        pixNotConfigured: 'app.jsでPixキーを設定してください。',
-        adPlaceholder: '広告スペース',
+        pixNotConfigured: 'Pixはまだ設定されていません。',
         independentNotice: 'このプロジェクトは独立したもので、Neymar公式とは関係ありません。',
         privacyLink: 'プライバシーポリシー',
         percentText: percent => `${percent}% がネイマールのW杯出場を望んでいます`
@@ -128,7 +128,8 @@ const textos = {
         titleLine1: '内马尔',
         titleLine2: '进',
         titleLine3: '世界杯',
-        photoWatermark: '内马尔进世界杯',
+        photoWatermark: '球迷投票',
+        fanSiteText: '这是由球迷创建的独立投票，与 Neymar 本人、代表、赞助商、俱乐部或体育组织没有官方关联。',
         votesLabel: '人已投票',
         goalText: '目标：20,000,000 票',
         mainVoteButton: '立即投票',
@@ -142,12 +143,11 @@ const textos = {
         emailRequired: '请输入邮箱。',
         errorMessage: '无法登记投票。',
         requestError: '请求错误',
-        supportTitle: '支持项目',
-        supportText: '通过 Pix 捐助，帮助维持投票页面在线。',
-        pixButton: '复制 Pix 密钥',
+        supportTitle: '低调支持',
+        supportText: '如果你想帮助维持这个投票页面在线，可以通过 Pix 捐助。',
+        pixButton: '复制 Pix',
         pixCopied: 'Pix 密钥已复制！',
-        pixNotConfigured: '请在 app.js 中配置 Pix 密钥。',
-        adPlaceholder: '广告预留位',
+        pixNotConfigured: 'Pix 尚未配置。',
         independentNotice: '本项目为独立项目，与 Neymar 官方无关联。',
         privacyLink: '隐私政策',
         percentText: percent => `${percent}% 支持内马尔参加世界杯`
@@ -343,24 +343,6 @@ async function registrarVoto(querNeymar) {
         console.error(error);
     }
 }
-
-/*
-    CRUD disponível pela API:
-
-    CREATE/UPSERT:
-    POST /api/votes
-    body: { "pais": "Brasil", "email": "teste@email.com", "querNeymar": true }
-
-    READ:
-    GET /api/votes
-
-    UPDATE:
-    PUT /api/votes
-    body: { "email": "teste@email.com", "pais": "Portugal", "querNeymar": false }
-
-    DELETE:
-    DELETE /api/votes?email=teste@email.com
-*/
 
 aplicarIdioma();
 carregarDashboard();

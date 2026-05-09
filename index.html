@@ -11,13 +11,14 @@
     <main class="page">
         <section class="petition-card">
 
-            <div class="player-photo-wrap">
-                <img
-                    src="assets/neymar.jpg"
-                    alt="Neymar"
-                    class="player-photo"
-                />
-                <div class="player-watermark" data-i18n="photoWatermark">Neymar na Copa</div>
+            <div class="player-photo-wrap" aria-hidden="true">
+                <div class="fan-visual">
+                    <div class="field-line field-line-top"></div>
+                    <div class="field-line field-line-bottom"></div>
+                    <div class="center-circle"></div>
+                    <div class="fan-ball"></div>
+                </div>
+                <div class="player-watermark" data-i18n="photoWatermark">Enquete de fã-site</div>
             </div>
 
             <h1>
@@ -25,6 +26,10 @@
                 <span class="verde" data-i18n="titleLine2">na</span>
                 <span class="amarelo" data-i18n="titleLine3">Copa</span>
             </h1>
+
+            <p class="fan-site-note" data-i18n="fanSiteText">
+                Enquete independente criada por fãs. Não há vínculo oficial com Neymar.
+            </p>
 
             <div class="assinaturas">
                 <span class="numero-assinaturas" id="totalVotos">0</span>
@@ -56,17 +61,13 @@
             </div>
 
             <div class="support-area">
-                <h2 data-i18n="supportTitle">Apoie o projeto</h2>
-                <p data-i18n="supportText">Ajude a manter a votação online com uma contribuição via Pix.</p>
+                <h2 data-i18n="supportTitle">Apoie discretamente</h2>
+                <p data-i18n="supportText">Se quiser ajudar a manter esta enquete online, você pode contribuir via Pix.</p>
                 <button type="button" class="btn-pix" onclick="copiarPix()" data-i18n="pixButton">
-                    Copiar chave Pix
+                    Copiar Pix
                 </button>
                 <div class="pix-key" id="pixKey"></div>
                 <div class="msg-modal" id="msgPix"></div>
-            </div>
-
-            <div class="ad-area" aria-label="Publicidade">
-                <span data-i18n="adPlaceholder">Espaço reservado para anúncio</span>
             </div>
 
             <footer class="site-footer">
