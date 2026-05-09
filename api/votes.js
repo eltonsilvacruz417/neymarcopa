@@ -1,17 +1,30 @@
 import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+import fetch, { Headers, Request, Response } from 'cross-fetch';
+import WebSocket from 'ws';
 
 let supabaseClient;
 
+if (!globalThis.fetch) globalThis.fetch = fetch;
+if (!globalThis.Headers) globalThis.Headers = Headers;
+if (!globalThis.Request) globalThis.Request = Request;
+if (!globalThis.Response) globalThis.Response = Response;
+
 function getSupabase() {
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
     if (!supabaseUrl || !supabaseServiceRoleKey) {
         throw new Error('Variáveis SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY não configuradas.');
     }
 
     if (!supabaseClient) {
         supabaseClient = createClient(supabaseUrl, supabaseServiceRoleKey, {
+            global: {
+                fetch
+            },
+            realtime: {
+                transport: WebSocket
+            },
             auth: {
                 persistSession: false,
                 autoRefreshToken: false

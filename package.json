@@ -10,6 +10,8 @@
     "start": "node scripts/dev-server.mjs"
   },
   "dependencies": {
-    "@supabase/supabase-js": "2.105.4"
+    "@supabase/supabase-js": "2.105.4",
+    "cross-fetch": "^4.1.0",
+    "ws": "^8.18.0"
   }
 }
