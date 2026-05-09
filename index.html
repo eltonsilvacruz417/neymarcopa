@@ -55,6 +55,11 @@
                 <div id="rankingPaises"></div>
             </div>
 
+            <footer class="site-footer">
+                <p data-i18n="independentNotice">Projeto independente, sem vínculo oficial com Neymar.</p>
+                <a href="privacy.html" data-i18n="privacyLink">Política de Privacidade</a>
+            </footer>
+
         </section>
     </main>
 
@@ -67,14 +72,23 @@
 
             <div class="form-group">
                 <label for="pais" data-i18n="countryLabel">País</label>
-                <select id="pais">
-                </select>
+                <select id="pais"></select>
             </div>
 
             <div class="form-group">
                 <label for="email" data-i18n="emailLabel">E-mail</label>
                 <input type="email" id="email" placeholder="seuemail@exemplo.com" autocomplete="email" />
             </div>
+
+            <label class="consent-row" for="privacyConsent">
+                <input type="checkbox" id="privacyConsent" />
+                <span data-i18n="privacyConsent">
+                    Li e aceito a Política de Privacidade. Entendo que meu e-mail será usado para impedir votos duplicados e atualizar meu voto.
+                </span>
+            </label>
+            <a class="consent-link" href="privacy.html" target="_blank" rel="noopener" data-i18n="privacyLink">
+                Política de Privacidade
+            </a>
 
             <div class="botoes-voto">
                 <button type="button" class="btn btn-sim" onclick="registrarVoto(true)" data-i18n="yesButton">

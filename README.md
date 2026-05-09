@@ -7,6 +7,7 @@
 - `app.js`: integração do frontend com a API
 - `api/votes.js`: CRUD serverless na Vercel
 - `supabase.sql`: criação das tabelas, índices e triggers
+- `privacy.html`: política de privacidade
 - `.env.example`: variáveis necessárias
 
 ## 1. Criar banco no Supabase
@@ -34,13 +35,13 @@ SUPABASE_URL=https://SEU-PROJETO.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=SUA_SERVICE_ROLE_KEY
 ```
 
-A `SERVICE_ROLE_KEY` não deve ir para o frontend. Ela fica segura na função serverless da Vercel.
+A `SERVICE_ROLE_KEY` não deve ir para o frontend.
 
 ## 3. Rodar local
 
 ```bash
 npm install
-npx vercel dev
+npm run dev
 ```
 
 Acesse:
@@ -51,30 +52,28 @@ http://localhost:3000
 
 ## 4. Publicar na Vercel
 
-Suba no GitHub:
-
-```bash
-git init
-git add .
-git commit -m "crud votos neymar"
-git branch -M main
-git remote add origin https://github.com/SEU_USUARIO/neymar-copa-crud.git
-git push -u origin main
-```
-
-Na Vercel:
-
-1. Add New Project
-2. Import Git Repository
-3. Escolha o repositório
-4. Configure as Environment Variables:
+Na Vercel, importe o repositório e configure as Environment Variables:
 
 ```env
 SUPABASE_URL
 SUPABASE_SERVICE_ROLE_KEY
 ```
 
-5. Deploy
+## Privacidade/LGPD
+
+O formulário exige aceite da Política de Privacidade antes de registrar voto. O e-mail é usado para impedir votos duplicados e permitir atualização do voto pelo mesmo e-mail.
+
+Para bancos criados antes desta versão, rode no SQL Editor do Supabase:
+
+```sql
+ALTER TABLE public.neymar_peticao_votos
+ADD COLUMN IF NOT EXISTS consentimento_privacidade BOOLEAN NOT NULL DEFAULT FALSE;
+
+ALTER TABLE public.neymar_peticao_votos
+ADD COLUMN IF NOT EXISTS consentimento_privacidade_em TIMESTAMPTZ;
+```
+
+Sem esse ajuste, a API ainda valida o aceite, mas não consegue guardar as colunas de consentimento no banco antigo.
 
 ## CRUD da API
 
@@ -88,7 +87,8 @@ POST /api/votes
 {
   "pais": "Brasil",
   "email": "teste@email.com",
-  "querNeymar": true
+  "querNeymar": true,
+  "consentimentoPrivacidade": true
 }
 ```
 
@@ -96,25 +96,6 @@ POST /api/votes
 
 ```http
 GET /api/votes
-```
-
-Retorna:
-
-```json
-{
-  "totalVotos": 1,
-  "totalQuerem": 1,
-  "ranking": [
-    {
-      "pais": "Brasil",
-      "total_votos": 1,
-      "total_querem": 1
-    }
-  ],
-  "config": {
-    "exibir_percentual": true
-  }
-}
 ```
 
 ### UPDATE
@@ -127,7 +108,8 @@ PUT /api/votes
 {
   "pais": "Portugal",
   "email": "teste@email.com",
-  "querNeymar": false
+  "querNeymar": false,
+  "consentimentoPrivacidade": true
 }
 ```
 

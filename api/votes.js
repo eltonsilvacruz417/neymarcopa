@@ -63,6 +63,12 @@ function erroHttp(res, status, mensagem) {
     return res.status(status).json({ error: mensagem });
 }
 
+function erroColunaConsentimento(error) {
+    return error?.message?.includes('consentimento_privacidade')
+        || error?.details?.includes('consentimento_privacidade')
+        || error?.hint?.includes('consentimento_privacidade');
+}
+
 async function lerDashboard(supabase) {
     const { count: totalVotos, error: erroTotal } = await supabase
         .from('neymar_peticao_votos')
@@ -140,18 +146,46 @@ async function salvarVoto(supabase, body) {
         };
     }
 
-    const { data, error } = await supabase
+    if (body?.consentimentoPrivacidade !== true) {
+        return {
+            status: 400,
+            body: { error: 'Consentimento de privacidade é obrigatório.' }
+        };
+    }
+
+    const votoBase = {
+        pais: normalizarPais(body.pais),
+        email,
+        quer_neymar: normalizarBoolean(body.querNeymar),
+        atualizado_em: new Date().toISOString()
+    };
+
+    const votoComConsentimento = {
+        ...votoBase,
+        consentimento_privacidade: true,
+        consentimento_privacidade_em: new Date().toISOString()
+    };
+
+    let { data, error } = await supabase
         .from('neymar_peticao_votos')
-        .upsert({
-            pais: normalizarPais(body.pais),
-            email,
-            quer_neymar: normalizarBoolean(body.querNeymar),
-            atualizado_em: new Date().toISOString()
-        }, {
+        .upsert(votoComConsentimento, {
             onConflict: 'email'
         })
         .select('id, pais, email, quer_neymar, criado_em, atualizado_em')
         .single();
+
+    if (erroColunaConsentimento(error)) {
+        const fallback = await supabase
+            .from('neymar_peticao_votos')
+            .upsert(votoBase, {
+                onConflict: 'email'
+            })
+            .select('id, pais, email, quer_neymar, criado_em, atualizado_em')
+            .single();
+
+        data = fallback.data;
+        error = fallback.error;
+    }
 
     if (error) throw error;
 
@@ -189,16 +223,40 @@ export default async function handler(req, res) {
                 return erroHttp(res, 400, 'E-mail inválido.');
             }
 
-            const { data, error } = await supabase
+            if (req.body?.consentimentoPrivacidade !== true) {
+                return erroHttp(res, 400, 'Consentimento de privacidade é obrigatório.');
+            }
+
+            const updateBase = {
+                pais: normalizarPais(req.body?.pais),
+                quer_neymar: normalizarBoolean(req.body?.querNeymar),
+                atualizado_em: new Date().toISOString()
+            };
+
+            const updateComConsentimento = {
+                ...updateBase,
+                consentimento_privacidade: true,
+                consentimento_privacidade_em: new Date().toISOString()
+            };
+
+            let { data, error } = await supabase
                 .from('neymar_peticao_votos')
-                .update({
-                    pais: normalizarPais(req.body?.pais),
-                    quer_neymar: normalizarBoolean(req.body?.querNeymar),
-                    atualizado_em: new Date().toISOString()
-                })
+                .update(updateComConsentimento)
                 .eq('email', email)
                 .select('id, pais, email, quer_neymar, criado_em, atualizado_em')
                 .maybeSingle();
+
+            if (erroColunaConsentimento(error)) {
+                const fallback = await supabase
+                    .from('neymar_peticao_votos')
+                    .update(updateBase)
+                    .eq('email', email)
+                    .select('id, pais, email, quer_neymar, criado_em, atualizado_em')
+                    .maybeSingle();
+
+                data = fallback.data;
+                error = fallback.error;
+            }
 
             if (error) throw error;
             if (!data) return erroHttp(res, 404, 'Voto não encontrado.');

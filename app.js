@@ -38,6 +38,10 @@ const textos = {
         noButton: 'Não quero',
         successMessage: 'Voto registrado com sucesso!',
         emailRequired: 'Informe o e-mail.',
+        consentRequired: 'Aceite a política de privacidade para registrar seu voto.',
+        privacyConsent: 'Li e aceito a Política de Privacidade. Entendo que meu e-mail será usado para impedir votos duplicados e atualizar meu voto.',
+        privacyLink: 'Política de Privacidade',
+        independentNotice: 'Projeto independente, sem vínculo oficial com Neymar.',
         errorMessage: 'Não foi possível registrar o voto.',
         requestError: 'Erro na requisição',
         percentText: percent => `${percent}% querem Neymar na Copa`
@@ -61,6 +65,10 @@ const textos = {
         noButton: 'I do not want him',
         successMessage: 'Vote registered successfully!',
         emailRequired: 'Please enter your email.',
+        consentRequired: 'Accept the privacy policy to register your vote.',
+        privacyConsent: 'I have read and accept the Privacy Policy. I understand my email will be used to prevent duplicate votes and update my vote.',
+        privacyLink: 'Privacy Policy',
+        independentNotice: 'Independent project with no official connection to Neymar.',
         errorMessage: 'Could not register vote.',
         requestError: 'Request error',
         percentText: percent => `${percent}% want Neymar in the World Cup`
@@ -84,6 +92,10 @@ const textos = {
         noButton: 'No lo quiero',
         successMessage: '¡Voto registrado con éxito!',
         emailRequired: 'Ingresa tu e-mail.',
+        consentRequired: 'Acepta la política de privacidad para registrar tu voto.',
+        privacyConsent: 'Leí y acepto la Política de Privacidad. Entiendo que mi e-mail se usará para evitar votos duplicados y actualizar mi voto.',
+        privacyLink: 'Política de Privacidad',
+        independentNotice: 'Proyecto independiente, sin vínculo oficial con Neymar.',
         errorMessage: 'No fue posible registrar el voto.',
         requestError: 'Error en la solicitud',
         percentText: percent => `${percent}% quieren a Neymar en el Mundial`
@@ -107,6 +119,10 @@ const textos = {
         noButton: '望まない',
         successMessage: '投票が登録されました！',
         emailRequired: 'メールを入力してください。',
+        consentRequired: '投票を登録するにはプライバシーポリシーへの同意が必要です。',
+        privacyConsent: 'プライバシーポリシーを読み、同意します。メールは重複投票の防止と投票の更新に使用されることを理解しています。',
+        privacyLink: 'プライバシーポリシー',
+        independentNotice: 'このプロジェクトは独立したもので、Neymar公式とは関係ありません。',
         errorMessage: '投票を登録できませんでした。',
         requestError: 'リクエストエラー',
         percentText: percent => `${percent}% がネイマールのW杯出場を望んでいます`
@@ -130,6 +146,10 @@ const textos = {
         noButton: '我不支持',
         successMessage: '投票登记成功！',
         emailRequired: '请输入邮箱。',
+        consentRequired: '请接受隐私政策后再登记投票。',
+        privacyConsent: '我已阅读并接受隐私政策。我理解邮箱将用于防止重复投票并更新我的投票。',
+        privacyLink: '隐私政策',
+        independentNotice: '本项目为独立项目，与 Neymar 官方无关联。',
         errorMessage: '无法登记投票。',
         requestError: '请求错误',
         percentText: percent => `${percent}% 支持内马尔参加世界杯`
@@ -307,10 +327,16 @@ function renderizarRanking(ranking) {
 async function registrarVoto(querNeymar) {
     const pais = document.getElementById('pais').value;
     const email = document.getElementById('email').value.trim();
+    const consentimento = document.getElementById('privacyConsent');
     const idioma = obterTextos();
 
     if (!email) {
         exibirMensagem(idioma.emailRequired, 'erro');
+        return;
+    }
+
+    if (!consentimento?.checked) {
+        exibirMensagem(idioma.consentRequired, 'erro');
         return;
     }
 
@@ -320,7 +346,8 @@ async function registrarVoto(querNeymar) {
             body: JSON.stringify({
                 pais,
                 email,
-                querNeymar
+                querNeymar,
+                consentimentoPrivacidade: true
             })
         });
 
@@ -335,24 +362,6 @@ async function registrarVoto(querNeymar) {
         console.error(error);
     }
 }
-
-/*
-    CRUD disponível pela API:
-
-    CREATE/UPSERT:
-    POST /api/votes
-    body: { "pais": "Brasil", "email": "teste@email.com", "querNeymar": true }
-
-    READ:
-    GET /api/votes
-
-    UPDATE:
-    PUT /api/votes
-    body: { "email": "teste@email.com", "pais": "Portugal", "querNeymar": false }
-
-    DELETE:
-    DELETE /api/votes?email=teste@email.com
-*/
 
 aplicarIdioma();
 carregarDashboard();

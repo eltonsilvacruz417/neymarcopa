@@ -16,9 +16,17 @@ CREATE TABLE IF NOT EXISTS public.neymar_peticao_votos
     pais VARCHAR(100) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     quer_neymar BOOLEAN NOT NULL,
+    consentimento_privacidade BOOLEAN NOT NULL DEFAULT FALSE,
+    consentimento_privacidade_em TIMESTAMPTZ,
     criado_em TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     atualizado_em TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+ALTER TABLE public.neymar_peticao_votos
+ADD COLUMN IF NOT EXISTS consentimento_privacidade BOOLEAN NOT NULL DEFAULT FALSE;
+
+ALTER TABLE public.neymar_peticao_votos
+ADD COLUMN IF NOT EXISTS consentimento_privacidade_em TIMESTAMPTZ;
 
 CREATE INDEX IF NOT EXISTS ix_neymar_peticao_votos_pais
 ON public.neymar_peticao_votos (pais);
