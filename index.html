@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neymar na Copa</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <main class="page">
+        <section class="petition-card">
+
+            <div class="player-photo-wrap">
+                <img
+                    src="https://wallpapers.com/images/hd/brazil-national-football-team-neymar-neon-green-9hdhoolgp6vlxllr.jpg"
+                    alt="Neymar"
+                    class="player-photo"
+                />
+            </div>
+
+            <h1>
+                <span data-i18n="titleLine1">Neymar</span> <br />
+                <span class="verde" data-i18n="titleLine2">na</span>
+                <span class="amarelo" data-i18n="titleLine3">Copa</span>
+            </h1>
+
+            <div class="assinaturas">
+                <span class="numero-assinaturas" id="totalVotos">0</span>
+                <span class="label-assinaturas" data-i18n="votesLabel">pessoas votaram</span>
+
+                <div class="meta-area">
+                    <div class="meta-info">
+                        <span id="metaTexto" data-i18n="goalText">Meta: 20.000.000 votos</span>
+                        <strong id="percentualMeta">0%</strong>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="barraMeta"></div>
+                    </div>
+                </div>
+
+                <div class="percentual-neymar" id="percentualNeymar">
+                    0% querem Neymar na Copa
+                </div>
+            </div>
+
+            <button type="button" class="btn-votar-principal" onclick="abrirModal()" data-i18n="mainVoteButton">
+                Votar agora
+            </button>
+
+            <div class="ranking">
+                <h2 data-i18n="rankingTitle">Votos por país</h2>
+                <div id="rankingPaises"></div>
+            </div>
+
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="modalVoto">
+        <div class="modal-voto">
+            <div class="modal-header">
+                <h2 data-i18n="modalTitle">Registrar voto</h2>
+                <button type="button" class="btn-fechar" onclick="fecharModal()" aria-label="Fechar">×</button>
+            </div>
+
+            <div class="form-group">
+                <label for="pais" data-i18n="countryLabel">País</label>
+                <select id="pais">
+                    <option value="Brasil">Brasil</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Portugal">Portugal</option>
+                    <option value="Estados Unidos">Estados Unidos</option>
+                    <option value="França">França</option>
+                    <option value="Espanha">Espanha</option>
+                    <option value="Outro">Outro</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="email" data-i18n="emailLabel">E-mail</label>
+                <input type="email" id="email" placeholder="seuemail@exemplo.com" autocomplete="email" />
+            </div>
+
+            <div class="botoes-voto">
+                <button type="button" class="btn btn-sim" onclick="registrarVoto(true)" data-i18n="yesButton">
+                    Quero Neymar
+                </button>
+
+                <button type="button" class="btn btn-nao" onclick="registrarVoto(false)" data-i18n="noButton">
+                    Não quero
+                </button>
+            </div>
+
+            <div class="msg-modal" id="msgModal"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
