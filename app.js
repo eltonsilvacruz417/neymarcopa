@@ -1,9 +1,28 @@
 const META_VOTOS = 20000000;
+const CODIGOS_PAISES = [
+    'AF', 'AX', 'AL', 'DZ', 'AS', 'AD', 'AO', 'AI', 'AQ', 'AG', 'AR', 'AM', 'AW', 'AU', 'AT', 'AZ',
+    'BS', 'BH', 'BD', 'BB', 'BY', 'BE', 'BZ', 'BJ', 'BM', 'BT', 'BO', 'BQ', 'BA', 'BW', 'BV', 'BR',
+    'IO', 'BN', 'BG', 'BF', 'BI', 'KH', 'CM', 'CA', 'CV', 'KY', 'CF', 'TD', 'CL', 'CN', 'CX', 'CC',
+    'CO', 'KM', 'CG', 'CD', 'CK', 'CR', 'CI', 'HR', 'CU', 'CW', 'CY', 'CZ', 'DK', 'DJ', 'DM', 'DO',
+    'EC', 'EG', 'SV', 'GQ', 'ER', 'EE', 'SZ', 'ET', 'FK', 'FO', 'FJ', 'FI', 'FR', 'GF', 'PF', 'TF',
+    'GA', 'GM', 'GE', 'DE', 'GH', 'GI', 'GR', 'GL', 'GD', 'GP', 'GU', 'GT', 'GG', 'GN', 'GW', 'GY',
+    'HT', 'HM', 'VA', 'HN', 'HK', 'HU', 'IS', 'IN', 'ID', 'IR', 'IQ', 'IE', 'IM', 'IL', 'IT', 'JM',
+    'JP', 'JE', 'JO', 'KZ', 'KE', 'KI', 'KP', 'KR', 'KW', 'KG', 'LA', 'LV', 'LB', 'LS', 'LR', 'LY',
+    'LI', 'LT', 'LU', 'MO', 'MG', 'MW', 'MY', 'MV', 'ML', 'MT', 'MH', 'MQ', 'MR', 'MU', 'YT', 'MX',
+    'FM', 'MD', 'MC', 'MN', 'ME', 'MS', 'MA', 'MZ', 'MM', 'NA', 'NR', 'NP', 'NL', 'NC', 'NZ', 'NI',
+    'NE', 'NG', 'NU', 'NF', 'MK', 'MP', 'NO', 'OM', 'PK', 'PW', 'PS', 'PA', 'PG', 'PY', 'PE', 'PH',
+    'PN', 'PL', 'PT', 'PR', 'QA', 'RE', 'RO', 'RU', 'RW', 'BL', 'SH', 'KN', 'LC', 'MF', 'PM', 'VC',
+    'WS', 'SM', 'ST', 'SA', 'SN', 'RS', 'SC', 'SL', 'SG', 'SX', 'SK', 'SI', 'SB', 'SO', 'ZA', 'GS',
+    'SS', 'ES', 'LK', 'SD', 'SR', 'SJ', 'SE', 'CH', 'SY', 'TW', 'TJ', 'TZ', 'TH', 'TL', 'TG', 'TK',
+    'TO', 'TT', 'TN', 'TR', 'TM', 'TC', 'TV', 'UG', 'UA', 'AE', 'GB', 'US', 'UM', 'UY', 'UZ', 'VU',
+    'VE', 'VN', 'VG', 'VI', 'WF', 'EH', 'YE', 'ZM', 'ZW'
+];
 
 const textos = {
     pt: {
         lang: 'pt-BR',
         locale: 'pt-BR',
+        defaultCountryCode: 'BR',
         titleLine1: 'Neymar',
         titleLine2: 'na',
         titleLine3: 'Copa',
@@ -26,6 +45,7 @@ const textos = {
     en: {
         lang: 'en',
         locale: 'en-US',
+        defaultCountryCode: 'US',
         titleLine1: 'Neymar',
         titleLine2: 'to the',
         titleLine3: 'World Cup',
@@ -48,6 +68,7 @@ const textos = {
     es: {
         lang: 'es',
         locale: 'es-ES',
+        defaultCountryCode: 'ES',
         titleLine1: 'Neymar',
         titleLine2: 'al',
         titleLine3: 'Mundial',
@@ -70,6 +91,7 @@ const textos = {
     ja: {
         lang: 'ja',
         locale: 'ja-JP',
+        defaultCountryCode: 'JP',
         titleLine1: 'ネイマール',
         titleLine2: 'を',
         titleLine3: 'W杯へ',
@@ -92,6 +114,7 @@ const textos = {
     zh: {
         lang: 'zh-CN',
         locale: 'zh-CN',
+        defaultCountryCode: 'CN',
         titleLine1: '内马尔',
         titleLine2: '进',
         titleLine3: '世界杯',
@@ -141,6 +164,49 @@ function aplicarIdioma() {
             el.textContent = idioma[chave];
         }
     });
+
+    preencherPaises();
+}
+
+function criarDisplayPaises() {
+    if (typeof Intl.DisplayNames === 'function') {
+        return new Intl.DisplayNames([obterTextos().locale], { type: 'region' });
+    }
+
+    return null;
+}
+
+function obterNomePais(codigo, displayPaises) {
+    return displayPaises?.of(codigo) || codigo;
+}
+
+function preencherPaises() {
+    const select = document.getElementById('pais');
+    if (!select) return;
+
+    const valorAtual = select.value;
+    const idioma = obterTextos();
+    const displayPaises = criarDisplayPaises();
+    const nomes = CODIGOS_PAISES
+        .map(codigo => ({
+            codigo,
+            nome: obterNomePais(codigo, displayPaises)
+        }))
+        .sort((a, b) => a.nome.localeCompare(b.nome, idioma.locale));
+
+    select.innerHTML = nomes.map(item => (
+        `<option value="${escaparHtml(item.nome)}" data-country-code="${item.codigo}">${escaparHtml(item.nome)}</option>`
+    )).join('');
+
+    const codigoPreferido = idioma.defaultCountryCode;
+    const opcaoAtual = Array.from(select.options).find(option => option.value === valorAtual);
+    const opcaoPreferida = Array.from(select.options).find(option => option.dataset.countryCode === codigoPreferido);
+
+    if (opcaoAtual) {
+        select.value = valorAtual;
+    } else if (opcaoPreferida) {
+        select.value = opcaoPreferida.value;
+    }
 }
 
 function aplicarFlagPercentual(exibirPercentual) {
