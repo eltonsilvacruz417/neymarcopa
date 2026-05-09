@@ -1,4 +1,5 @@
 const META_VOTOS = 20000000;
+const PIX_KEY = 'SUA_CHAVE_PIX_AQUI';
 
 const textos = {
     pt: {
@@ -21,6 +22,14 @@ const textos = {
         emailRequired: 'Informe o e-mail.',
         errorMessage: 'Não foi possível registrar o voto.',
         requestError: 'Erro na requisição',
+        supportTitle: 'Apoie o projeto',
+        supportText: 'Ajude a manter a votação online com uma contribuição via Pix.',
+        pixButton: 'Copiar chave Pix',
+        pixCopied: 'Chave Pix copiada!',
+        pixNotConfigured: 'Configure sua chave Pix no app.js.',
+        adPlaceholder: 'Espaço reservado para anúncio',
+        independentNotice: 'Projeto independente, sem vínculo oficial com Neymar.',
+        privacyLink: 'Política de Privacidade',
         percentText: percent => `${percent}% querem Neymar na Copa`
     },
     en: {
@@ -43,6 +52,14 @@ const textos = {
         emailRequired: 'Please enter your email.',
         errorMessage: 'Could not register vote.',
         requestError: 'Request error',
+        supportTitle: 'Support the project',
+        supportText: 'Help keep this voting page online with a Pix donation.',
+        pixButton: 'Copy Pix key',
+        pixCopied: 'Pix key copied!',
+        pixNotConfigured: 'Configure your Pix key in app.js.',
+        adPlaceholder: 'Reserved ad space',
+        independentNotice: 'Independent project with no official connection to Neymar.',
+        privacyLink: 'Privacy Policy',
         percentText: percent => `${percent}% want Neymar in the World Cup`
     },
     es: {
@@ -65,6 +82,14 @@ const textos = {
         emailRequired: 'Ingresa tu e-mail.',
         errorMessage: 'No fue posible registrar el voto.',
         requestError: 'Error en la solicitud',
+        supportTitle: 'Apoya el proyecto',
+        supportText: 'Ayuda a mantener la votación online con una contribución por Pix.',
+        pixButton: 'Copiar clave Pix',
+        pixCopied: '¡Clave Pix copiada!',
+        pixNotConfigured: 'Configura tu clave Pix en app.js.',
+        adPlaceholder: 'Espacio reservado para anuncio',
+        independentNotice: 'Proyecto independiente, sin vínculo oficial con Neymar.',
+        privacyLink: 'Política de Privacidad',
         percentText: percent => `${percent}% quieren a Neymar en el Mundial`
     },
     ja: {
@@ -87,6 +112,14 @@ const textos = {
         emailRequired: 'メールを入力してください。',
         errorMessage: '投票を登録できませんでした。',
         requestError: 'リクエストエラー',
+        supportTitle: 'プロジェクトを支援',
+        supportText: 'Pix寄付でこの投票ページの運営を支援できます。',
+        pixButton: 'Pixキーをコピー',
+        pixCopied: 'Pixキーをコピーしました！',
+        pixNotConfigured: 'app.jsでPixキーを設定してください。',
+        adPlaceholder: '広告スペース',
+        independentNotice: 'このプロジェクトは独立したもので、Neymar公式とは関係ありません。',
+        privacyLink: 'プライバシーポリシー',
         percentText: percent => `${percent}% がネイマールのW杯出場を望んでいます`
     },
     zh: {
@@ -109,6 +142,14 @@ const textos = {
         emailRequired: '请输入邮箱。',
         errorMessage: '无法登记投票。',
         requestError: '请求错误',
+        supportTitle: '支持项目',
+        supportText: '通过 Pix 捐助，帮助维持投票页面在线。',
+        pixButton: '复制 Pix 密钥',
+        pixCopied: 'Pix 密钥已复制！',
+        pixNotConfigured: '请在 app.js 中配置 Pix 密钥。',
+        adPlaceholder: '广告预留位',
+        independentNotice: '本项目为独立项目，与 Neymar 官方无关联。',
+        privacyLink: '隐私政策',
         percentText: percent => `${percent}% 支持内马尔参加世界杯`
     }
 };
@@ -141,6 +182,8 @@ function aplicarIdioma() {
             el.textContent = idioma[chave];
         }
     });
+
+    atualizarPix();
 }
 
 function aplicarFlagPercentual(exibirPercentual) {
@@ -173,6 +216,37 @@ function limparMensagem() {
     const msg = document.getElementById('msgModal');
     msg.textContent = '';
     msg.className = 'msg-modal';
+}
+
+function pixConfigurado() {
+    return PIX_KEY && PIX_KEY !== 'SUA_CHAVE_PIX_AQUI';
+}
+
+function atualizarPix() {
+    const pixKey = document.getElementById('pixKey');
+    if (!pixKey) return;
+
+    pixKey.textContent = pixConfigurado() ? PIX_KEY : obterTextos().pixNotConfigured;
+}
+
+async function copiarPix() {
+    const msg = document.getElementById('msgPix');
+    const idioma = obterTextos();
+
+    if (!pixConfigurado()) {
+        msg.textContent = idioma.pixNotConfigured;
+        msg.className = 'msg-modal ativo erro';
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(PIX_KEY);
+        msg.textContent = idioma.pixCopied;
+        msg.className = 'msg-modal ativo sucesso';
+    } catch (error) {
+        msg.textContent = PIX_KEY;
+        msg.className = 'msg-modal ativo sucesso';
+    }
 }
 
 async function apiRequest(url, options) {

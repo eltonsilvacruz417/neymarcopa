@@ -205,6 +205,123 @@ h1 {
     color: #ffdf00;
 }
 
+.support-area,
+.ad-area,
+.site-footer {
+    margin-top: 24px;
+}
+
+.support-area {
+    padding: 20px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    text-align: center;
+}
+
+.support-area h2 {
+    margin-bottom: 8px;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.support-area p {
+    color: #d6d6d6;
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.btn-pix {
+    margin-top: 14px;
+    border: none;
+    padding: 13px 18px;
+    border-radius: 14px;
+    background: #ffdf00;
+    color: #111111;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.pix-key {
+    margin-top: 10px;
+    color: #bdbdbd;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.ad-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 90px;
+    border: 1px dashed rgba(255, 255, 255, 0.24);
+    border-radius: 14px;
+    color: #9b9b9b;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.site-footer {
+    color: #bdbdbd;
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.site-footer a {
+    display: inline-block;
+    margin-top: 8px;
+    color: #ffdf00;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    text-decoration: underline;
+}
+
+.privacy-page {
+    align-items: flex-start;
+}
+
+.privacy-content {
+    width: 100%;
+    max-width: 760px;
+    color: #e8e8e8;
+}
+
+.privacy-content h1 {
+    margin-top: 20px;
+    margin-bottom: 22px;
+    font-size: clamp(34px, 7vw, 58px);
+    letter-spacing: 0;
+}
+
+.privacy-content h2 {
+    margin-top: 24px;
+    margin-bottom: 8px;
+    color: #ffdf00;
+    font-size: 20px;
+}
+
+.privacy-content p {
+    color: #d5d5d5;
+    font-size: 16px;
+    line-height: 1.65;
+}
+
+.back-link {
+    color: #ffdf00;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
 .modal-overlay {
     position: fixed;
     inset: 0;

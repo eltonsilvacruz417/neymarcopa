@@ -154,3 +154,27 @@ UPDATE public.neymar_peticao_config
 SET exibir_percentual = TRUE
 WHERE id = 1;
 ```
+
+## Monetização
+
+### Pix
+
+Edite `app.js` e troque:
+
+```js
+const PIX_KEY = 'SUA_CHAVE_PIX_AQUI';
+```
+
+pela sua chave Pix real.
+
+### Política e aviso
+
+O projeto inclui:
+
+- `privacy.html`: Política de Privacidade
+- Aviso na página principal: projeto independente, sem vínculo oficial com Neymar
+
+### AdSense
+
+Depois que o Google AdSense aprovar o domínio, substitua o bloco visual `.ad-area`
+por um bloco oficial do AdSense e inclua o script fornecido pelo Google.
