@@ -1,4 +1,5 @@
 const META_VOTOS = 20000000;
+const PIX_KEY = 'a772c977-77a5-4510-83fb-0d1a25097415';
 const CODIGOS_PAISES = [
     'AF', 'AX', 'AL', 'DZ', 'AS', 'AD', 'AO', 'AI', 'AQ', 'AG', 'AR', 'AM', 'AW', 'AU', 'AT', 'AZ',
     'BS', 'BH', 'BD', 'BB', 'BY', 'BE', 'BZ', 'BJ', 'BM', 'BT', 'BO', 'BQ', 'BA', 'BW', 'BV', 'BR',
@@ -42,6 +43,9 @@ const textos = {
         privacyConsent: 'Li e aceito a Política de Privacidade. Entendo que meu e-mail será usado para impedir votos duplicados e atualizar meu voto.',
         privacyLink: 'Política de Privacidade',
         independentNotice: 'Projeto independente, sem vínculo oficial com Neymar.',
+        supportText: 'Apoie a manutenção deste projeto independente via Pix.',
+        pixButton: 'Copiar Pix',
+        pixCopied: 'Chave Pix copiada!',
         errorMessage: 'Não foi possível registrar o voto.',
         requestError: 'Erro na requisição',
         percentText: percent => `${percent}% querem Neymar na Copa`
@@ -69,6 +73,9 @@ const textos = {
         privacyConsent: 'I have read and accept the Privacy Policy. I understand my email will be used to prevent duplicate votes and update my vote.',
         privacyLink: 'Privacy Policy',
         independentNotice: 'Independent project with no official connection to Neymar.',
+        supportText: 'Support the maintenance of this independent project via Pix.',
+        pixButton: 'Copy Pix',
+        pixCopied: 'Pix key copied!',
         errorMessage: 'Could not register vote.',
         requestError: 'Request error',
         percentText: percent => `${percent}% want Neymar in the World Cup`
@@ -96,6 +103,9 @@ const textos = {
         privacyConsent: 'Leí y acepto la Política de Privacidad. Entiendo que mi e-mail se usará para evitar votos duplicados y actualizar mi voto.',
         privacyLink: 'Política de Privacidad',
         independentNotice: 'Proyecto independiente, sin vínculo oficial con Neymar.',
+        supportText: 'Apoya el mantenimiento de este proyecto independiente vía Pix.',
+        pixButton: 'Copiar Pix',
+        pixCopied: '¡Clave Pix copiada!',
         errorMessage: 'No fue posible registrar el voto.',
         requestError: 'Error en la solicitud',
         percentText: percent => `${percent}% quieren a Neymar en el Mundial`
@@ -123,6 +133,9 @@ const textos = {
         privacyConsent: 'プライバシーポリシーを読み、同意します。メールは重複投票の防止と投票の更新に使用されることを理解しています。',
         privacyLink: 'プライバシーポリシー',
         independentNotice: 'このプロジェクトは独立したもので、Neymar公式とは関係ありません。',
+        supportText: 'この独立プロジェクトの維持をPixで支援できます。',
+        pixButton: 'Pixをコピー',
+        pixCopied: 'Pixキーをコピーしました！',
         errorMessage: '投票を登録できませんでした。',
         requestError: 'リクエストエラー',
         percentText: percent => `${percent}% がネイマールのW杯出場を望んでいます`
@@ -150,6 +163,9 @@ const textos = {
         privacyConsent: '我已阅读并接受隐私政策。我理解邮箱将用于防止重复投票并更新我的投票。',
         privacyLink: '隐私政策',
         independentNotice: '本项目为独立项目，与 Neymar 官方无关联。',
+        supportText: '通过 Pix 支持这个独立项目的维护。',
+        pixButton: '复制 Pix',
+        pixCopied: 'Pix 密钥已复制！',
         errorMessage: '无法登记投票。',
         requestError: '请求错误',
         percentText: percent => `${percent}% 支持内马尔参加世界杯`
@@ -259,6 +275,20 @@ function limparMensagem() {
     const msg = document.getElementById('msgModal');
     msg.textContent = '';
     msg.className = 'msg-modal';
+}
+
+async function copiarPix() {
+    const msg = document.getElementById('msgPix');
+    const idioma = obterTextos();
+
+    try {
+        await navigator.clipboard.writeText(PIX_KEY);
+        msg.textContent = idioma.pixCopied;
+    } catch (error) {
+        msg.textContent = PIX_KEY;
+    }
+
+    msg.className = 'msg-pix ativo';
 }
 
 async function apiRequest(url, options) {
