@@ -173,10 +173,8 @@ O projeto inclui:
 
 - `privacy.html`: Política de Privacidade
 - Aviso na página principal: projeto independente, sem vínculo oficial com Neymar
-- Visual neutro em CSS no lugar de foto de terceiros
 
 ### AdSense
 
-O projeto não exibe AdSense por padrão. Depois que o Google AdSense aprovar o domínio,
-inclua apenas o bloco oficial fornecido pelo Google e mantenha o aviso de projeto
-independente visível.
+Depois que o Google AdSense aprovar o domínio, substitua o bloco visual `.ad-area`
+por um bloco oficial do AdSense e inclua o script fornecido pelo Google.
