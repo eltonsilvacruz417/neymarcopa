@@ -173,6 +173,11 @@ const textos = {
 };
 
 function detectarIdioma() {
+    const idiomaUrl = new URLSearchParams(window.location.search).get('lang');
+    if (['pt', 'en', 'es', 'ja', 'zh'].includes(idiomaUrl)) {
+        return idiomaUrl;
+    }
+
     const idioma = (navigator.language || navigator.userLanguage || '').toLowerCase();
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
 
